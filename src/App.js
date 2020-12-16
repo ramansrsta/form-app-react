@@ -8,24 +8,33 @@ function App() {
 
     const [ formData, setFormData] = useState({
       email : '',
-      password: ''
+      password: '',
     });
+
+    const [errorState,errorStateChanger] = useState(false)
 
     const handleSubmit = e => {
       e.preventDefault();
       setFormData({
+        ...formData,
         email: '',
         password: ''
       })
     }
 
     const onChangeHandler = event => {
+      if(event.target.value.length < 8 && event.target.name === 'password'){
+        errorStateChanger(true);
+      }else{
+        errorStateChanger(false);
+      }
       setFormData({
+        ...formData,
         [event.target.name] : event.target.value
       })
     }
 
-    const useStyles = makeStyles(() => ({
+    const useStyles = makeStyles((theme) => ({
       root: {
           marginTop: '3%',
           marginLeft: '20%',
@@ -45,12 +54,11 @@ function App() {
     const classes = useStyles();
 
     return (
-      <div className={ App }>
+      <div>
         <h1 className={classes.header}> Login Page </h1>
         <form className={classes.root} autoComplete="off" onSubmit={handleSubmit}>
           <TextField
             required
-            id="standard-email-input"
             label="Email"
             type="email"
             name="email"
@@ -60,12 +68,13 @@ function App() {
 
           <TextField
             required
-            id="standard-password-input"
             label="Password"
             type="password"
             name="password"
             value={formData.password}
             onChange={onChangeHandler}
+            error = {errorState}
+            helperText = { errorState ? 'Password should be more than 8 Chars ' : false}
           />
           
           <Button type="submit" className={classes.button} variant="contained" color="primary">
