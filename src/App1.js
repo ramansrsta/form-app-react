@@ -1,9 +1,9 @@
 import './App.css';
 import React, { Component } from 'react';
-import TextFieldComponent from './components/TextField/TextField';
-import ButtonComponent from './components/Button/Button';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
     root: {
@@ -22,6 +22,7 @@ const styles = theme => ({
     }
   });
 class App extends Component {
+
     state = {
         email : '',
         password: '',
@@ -30,20 +31,10 @@ class App extends Component {
 
     handleSubmit = e => {
       e.preventDefault();
-      const formData = {
-        email : this.state.email,
-        password : this.state.password
-      }
-      axios.post('https://api.test.01cloud.dev/user/login',formData)
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error)
-        })
       this.setState({
-        email: '',
-        password: ''
+          email : '',
+          password: '',
+          errorState: false
       })
     }
 
@@ -68,38 +59,48 @@ class App extends Component {
     return (
         <div>
           <h1 className={classes.header}> Login Page </h1>
-          <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
-
-            <TextFieldComponent
+          <form className={classes.root} autoComplete="off" onSubmit={(event) =>this.props.submitHandler(event)}>
+            <TextField
+              required
               label="Email"
               type="email"
               name="email"
-              value={this.state.email}
+              value={this.props.email}
               onChange={this.onChangeHandler}
             />
-
-            <TextFieldComponent
+  
+            <TextField
+              required
               label="Password"
               type="password"
               name="password"
-              value={this.state.password}
+              value={this.props.password}
               onChange={this.onChangeHandler}
-              error = {this.state.errorState}
-              helperText = { this.state.errorState ? 'Password should be more than 8 Chars ' : false}
+              error = {this.props.errorState}
+              helperText = { this.props.errorState ? 'Password should be more than 8 Chars ' : false}
             />
             
-            <ButtonComponent
-            type="submit" 
-            className={classes.button} 
-            variant="contained" 
-            color="primary">
+            <Button type="submit" className={classes.button} variant="contained" color="primary">
                Submit
-            </ButtonComponent>
-
+            </Button>
           </form>
         </div>
       );
    }
   }
 
-export default withStyles(styles)(App);
+const mapStateToProps = state => {
+  return {
+    email: state.email,
+    password: state.password,
+    errorState : state.errorState
+  };
+}
+
+const matchDispatchToProps = dispatch => {
+  return {
+    submitHandler: (event) => dispatch({ type: 'FORM_SUBMIT',value:event})
+  }
+}
+
+export default connect(mapStateToProps,matchDispatchToProps)(withStyles(styles)(App));
