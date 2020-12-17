@@ -1,7 +1,8 @@
 const initialState = {
     email : '',
     password: '',
-    message: ''
+    message: '',
+    failMessage: ''
 }
 
 const reducer = ( state=initialState, action ) => 
@@ -22,7 +23,7 @@ const reducer = ( state=initialState, action ) =>
     if(action.type === 'USER_LOGIN_FAILED'){
         return {
             ...state,
-            message : action.message
+            failMessage : action.message
         }
     }
     return state;

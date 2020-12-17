@@ -56,7 +56,9 @@ class App extends Component {
 
     let messageAlert = '';
     if(this.props.message){
-      messageAlert = (<Alert className={classes.alert} severity="info">{this.props.message}</Alert>);
+      messageAlert = (<Alert className={classes.alert} severity="success">{this.props.message}</Alert>);
+    }else if(this.props.failMessage){
+      messageAlert = (<Alert className={classes.alert} severity="error">{this.props.failMessage}</Alert>);
     }
     return (
         <div>
@@ -96,7 +98,8 @@ const mapStateToProps = state => {
   return {
     email : state.email,
     password: state.password,
-    message: state.message
+    message: state.message,
+    failMessage: state.failMessage
   };
 }
 
