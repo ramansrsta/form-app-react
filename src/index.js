@@ -3,12 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';
-import reducer from './store/reducer';
+
+import { createStore, applyMiddleware } from 'redux';
+import reducer from './store/reducers/reducer';
 import { Provider } from 'react-redux';
 
+import createSagaMiddleware from 'redux-saga';
+import submitFormData from './store/sagas/index';
 
-const store = createStore(reducer);
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(
+  reducer,
+  applyMiddleware(sagaMiddleware)
+  );
+
+sagaMiddleware.run(submitFormData)
 
 
 ReactDOM.render(
