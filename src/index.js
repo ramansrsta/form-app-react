@@ -9,7 +9,7 @@ import reducer from './store/reducers/reducer';
 import { Provider } from 'react-redux';
 
 import createSagaMiddleware from 'redux-saga';
-import submitFormData from './store/sagas/index';
+import submitFormData from './store/sagas/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 

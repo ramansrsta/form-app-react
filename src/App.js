@@ -60,6 +60,7 @@ class App extends Component {
     }else if(this.props.failMessage){
       messageAlert = (<Alert className={classes.alert} severity="error">{this.props.failMessage}</Alert>);
     }
+    
     return (
         <div>
           <h1 className={classes.header}> Login Page </h1>
