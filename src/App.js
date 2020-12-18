@@ -6,6 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Alert from '@material-ui/lab/Alert';
 
+import { change, formSubmit } from './store/actions/actions';
+
 const styles = theme => ({
     root: {
         marginTop: '3%',
@@ -106,8 +108,10 @@ const mapStateToProps = state => {
 
 const matchDispatchToProps = dispatch => {
   return {
-    changeHandler: (name,value) => dispatch({type:'CHANGE', name:name, value: value}),
-    submitHandler: (email,password) => dispatch({type:'FORM_SUBMIT', email:email, password:password})
+    // changeHandler: (name,value) => dispatch({type:'CHANGE', name:name, value: value}),
+    changeHandler: (name,value) => dispatch(change(name,value)),
+    // submitHandler: (email,password) => dispatch({type:'FORM_SUBMIT', email:email, password:password})
+    submitHandler: (email,password) => dispatch(formSubmit(email,password))
   }
 }
 
