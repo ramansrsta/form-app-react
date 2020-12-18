@@ -108,9 +108,7 @@ const mapStateToProps = state => {
 
 const matchDispatchToProps = dispatch => {
   return {
-    // changeHandler: (name,value) => dispatch({type:'CHANGE', name:name, value: value}),
     changeHandler: (name,value) => dispatch(change(name,value)),
-    // submitHandler: (email,password) => dispatch({type:'FORM_SUBMIT', email:email, password:password})
     submitHandler: (email,password) => dispatch(formSubmit(email,password))
   }
 }

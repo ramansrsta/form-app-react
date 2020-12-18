@@ -11,7 +11,6 @@ export const change = (name,value) => {
     }
 }
 
-
 export const formSubmit = (email,password) => {
     return {
         type: FORM_SUBMIT,
