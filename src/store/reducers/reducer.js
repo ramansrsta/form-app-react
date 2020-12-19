@@ -2,7 +2,8 @@ const initialState = {
     email : '',
     password: '',
     message: '',
-    failMessage: ''
+    failMessage: '',
+    isAuth: false
 }
 
 const reducer = ( state=initialState, action ) => 
@@ -17,7 +18,8 @@ const reducer = ( state=initialState, action ) =>
     if(action.type === 'USER_LOGIN_SUCCEEDED'){
         return {
             ...state,
-            message : action.message
+            message : action.message,
+            isAuth: true
         }
     }
     if(action.type === 'USER_LOGIN_FAILED'){
