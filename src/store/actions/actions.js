@@ -1,5 +1,6 @@
 export const CHANGE = 'CHANGE';
 export const FORM_SUBMIT = 'FORM_SUBMIT';
+export const MESSAGE_FROM_ABOUT_US = 'MESSAGE_FROM_ABOUT_US';
 
 
 
@@ -16,5 +17,12 @@ export const formSubmit = (email,password) => {
         type: FORM_SUBMIT,
         email: email,
         password: password
+    }
+}
+
+export const messageHandler = (message) => {
+    return {
+        type: MESSAGE_FROM_ABOUT_US,
+        message: message
     }
 }

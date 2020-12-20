@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'flex-end',
-      marginRight: '2%'
+      marginRight: '2%',
+      padding: '1%'
     },
     item: {
         fontWeight: 'bolder'

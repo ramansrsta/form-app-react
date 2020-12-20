@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import './contactus.css';
 
-const ContactUs = () => (
-    <h1> This is ContactUs component</h1>
-);
+class ContactUs extends Component {
+    render(){
+        return (
+            <Fragment>
+                <div className="message">
+                    <h1> {this.props.aboutMessage} </h1>
+                    <p> by {this.props.email}</p>
+                </div>
+            </Fragment>
+        );
+    }
+}
 
-export default ContactUs;
+const mapStateToProps = state => {
+    return {
+        aboutMessage : state.aboutmessage,
+        email: state.email
+    }
+}
+
+export default connect(mapStateToProps,null)(ContactUs);

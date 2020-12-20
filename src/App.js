@@ -1,12 +1,12 @@
 import './App.css';
 import React, { Component, Fragment } from 'react';
 
-import TextFieldComponent from './components/TextField/TextField';
-import ButtonComponent from './components/Button/Button';
+
 import Home from './components/Home/home';
 import AboutUs from "./components/AboutUs/aboutUs";
 import ContactUs from './components/ContacUs/contactUs';
 import NavBar from './components/NavBar/navBar';
+import Login from './components/Login/login';
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -39,6 +39,7 @@ const styles = theme => ({
       textAlign:'center'
     }
   });
+  
 class App extends Component {
 
     state = {
@@ -83,46 +84,23 @@ class App extends Component {
     }else if(this.props.failMessage){
       messageAlert = (<Alert className={classes.alert} severity="error">{this.props.failMessage}</Alert>);
     }
-
-
-  
     
     return (
         <div>
             {
             !this.props.isAuth ?
-            <div> 
-              <h1 className={classes.header}> Login Page </h1>
-              {messageAlert}
-              <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
-                <TextFieldComponent
-                  required
-                  label="Email"
-                  type="email"
-                  name="email"
-                  value={this.props.email}
-                  onChange={this.onChangeHandler}
-                />
-      
-                <TextFieldComponent
-                  required
-                  label="Password"
-                  type="password"
-                  name="password"
-                  value={this.props.password}
-                  onChange={this.onChangeHandler}
-                  error = {this.state.errorState}
-                  helperText = { this.state.errorState ? 'Password should be more than 8 Chars ' : false}
-                />
-
-               {this.renderRedirect()}
-                
-                <ButtonComponent type="submit" className={classes.button} variant="contained" color="primary">
-                  Submit
-                </ButtonComponent>
-              </form>
-
-            </div> : 
+              <Login 
+              headerClass={classes.header}
+              messageAlert={messageAlert}
+              formClass={classes.root}
+              submitHandler={this.handleSubmit}
+              email={this.props.email}
+              changeHandler={this.onChangeHandler}
+              password={this.props.password}
+              errorState={this.props.errorState}
+              renderRedirect={this.renderRedirect}
+              buttonClass={classes.button}
+               /> : 
             <Fragment>
               <NavBar />
               <Switch>

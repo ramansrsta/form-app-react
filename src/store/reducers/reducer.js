@@ -3,7 +3,8 @@ const initialState = {
     password: '',
     message: '',
     failMessage: '',
-    isAuth: false
+    isAuth: false,
+    aboutmessage: ''
 }
 
 const reducer = ( state=initialState, action ) => 
@@ -26,6 +27,12 @@ const reducer = ( state=initialState, action ) =>
         return {
             ...state,
             failMessage : action.message
+        }
+    }
+    if(action.type === 'MESSAGE_FROM_ABOUT_US'){
+        return {
+            ...state,
+            aboutmessage: action.message
         }
     }
     return state;
