@@ -3,7 +3,6 @@ import TextFieldComponent from '../../components/TextField/TextField';
 import ButtonComponent from '../../components/Button/Button';
 
 const Login = props => {
-    
     return (
         <div>
             <h1 className={props.headerClass}> Login Page </h1>

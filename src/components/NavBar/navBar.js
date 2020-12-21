@@ -8,6 +8,9 @@ import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router-dom';
 
 
+import { Trans } from 'react-i18next';
+
+
 const useStyles = makeStyles((theme) => ({
     list: {
       display: 'flex',
@@ -34,11 +37,25 @@ const NavBar = () => {
 
     return (
         <MenuList className={classes.list}>
-            <MenuItem className={classes.item} component={Link} to="/"> Home </MenuItem>
-            <MenuItem className={classes.item} component={Link} to="/about-us"> About Us</MenuItem>
-            <MenuItem className={classes.item} component={Link} to="/contact-us"> Contact Us</MenuItem>
+            <MenuItem className={classes.item} component={Link} to="/">
+                <Trans i18nKey="Navigation.home">
+                    Home
+                </Trans>
+            </MenuItem>
+            <MenuItem className={classes.item} component={Link} to="/about-us">
+                <Trans i18nKey="Navigation.aboutUs">
+                    About us
+                </Trans>
+            </MenuItem>
+            <MenuItem className={classes.item} component={Link} to="/contact-us">
+                <Trans i18nKey="Navigation.contactUs">
+                    Contact us
+                </Trans>
+            </MenuItem>
             <Button type="submit" onClick={handleLogout} className={classes.button} variant="contained" color="primary">
-                Logout
+                <Trans i18nKey="Navigation.logout">
+                    Logout
+                </Trans>
             </Button>
         </MenuList> 
     );

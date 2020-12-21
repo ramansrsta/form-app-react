@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -18,6 +18,8 @@ import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { BrowserRouter } from 'react-router-dom';
+
+import './i18n';
 
 const persistConfig = {
   key : 'root',
@@ -42,7 +44,9 @@ ReactDOM.render(
     <Provider store={store}>
        <PersistGate persistor={persistor}> 
           <BrowserRouter>
-            <App /> 
+            <Suspense fallback={<div>Loading</div>}>
+              <App /> 
+            </Suspense>
           </BrowserRouter>
        </PersistGate>
     </Provider>
