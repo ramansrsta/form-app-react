@@ -26,7 +26,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-import { withTranslation, Trans } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 
 
@@ -94,7 +94,6 @@ class App extends Component {
     }
    
    render(){
-    const { t } = this.props;
     const { classes } = this.props;
 
 
@@ -128,24 +127,27 @@ class App extends Component {
                 <Route exact path="/about-us" component={AboutUs} />
                 <Route exact path="/contact-us" component={ContactUs} />
               </Switch>
+              <div className="radio">
+                {/*
+                 for testing purpose
+                 <div>
+                  {t('Welcome')}
+                </div>
+                <Trans i18nKey="Welcome">
+                  Welcome
+                </Trans> */}
+
+                <hr />
+                <FormControl component="fieldset">
+                  <FormLabel component="legend"> Language Preference </FormLabel>
+                  <RadioGroup aria-label="Language" name="lan" value={this.state.value} onChange={this.langChanger}>
+                    <FormControlLabel value="en" control={<Radio />} label="English" />
+                    <FormControlLabel value="nep" control={<Radio />} label="Nepali" />
+                  </RadioGroup>
+                </FormControl>
+              </div>
             </Fragment> 
             }
-
-            <div>
-              {t('Welcome')}
-            </div>
-            <Trans i18nKey="Welcome">
-              Welcome
-            </Trans>
-
-            <hr />
-           <FormControl component="fieldset">
-              <FormLabel component="legend">Language</FormLabel>
-              <RadioGroup aria-label="Language" name="lan" value={this.state.value} onChange={this.langChanger}>
-                <FormControlLabel value="en" control={<Radio />} label="English" />
-                <FormControlLabel value="nep" control={<Radio />} label="Nepali" />
-              </RadioGroup>
-            </FormControl>
         </div>
       );
    }
