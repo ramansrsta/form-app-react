@@ -19,6 +19,17 @@ import { change, formSubmit } from './store/actions/actions';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 
+
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
+import { withTranslation, Trans } from 'react-i18next';
+
+
+
 const styles = theme => ({
     root: {
         marginTop: '3%',
@@ -44,7 +55,14 @@ class App extends Component {
 
     state = {
       errorState: false,
-      redirect: false
+      redirect: false,
+      value: "en"
+    }
+
+    langChanger = (event) => {
+      let newlang = event.target.value;
+      this.setState({ value: newlang });
+      this.props.i18n.changeLanguage(newlang);
     }
 
     handleSubmit = (e) => {
@@ -76,8 +94,10 @@ class App extends Component {
     }
    
    render(){
-
+    const { t } = this.props;
     const { classes } = this.props;
+
+
     let messageAlert = '';
     if(this.props.message){
       messageAlert = (<Alert className={classes.alert} severity="success">{this.props.message}</Alert>);
@@ -97,7 +117,7 @@ class App extends Component {
               email={this.props.email}
               changeHandler={this.onChangeHandler}
               password={this.props.password}
-              errorState={this.props.errorState}
+              errorState={this.state.errorState}
               renderRedirect={this.renderRedirect}
               buttonClass={classes.button}
                /> : 
@@ -111,7 +131,21 @@ class App extends Component {
             </Fragment> 
             }
 
-    
+            <div>
+              {t('Welcome')}
+            </div>
+            <Trans i18nKey="Welcome">
+              Welcome
+            </Trans>
+
+            <hr />
+           <FormControl component="fieldset">
+              <FormLabel component="legend">Language</FormLabel>
+              <RadioGroup aria-label="Language" name="lan" value={this.state.value} onChange={this.langChanger}>
+                <FormControlLabel value="en" control={<Radio />} label="English" />
+                <FormControlLabel value="nep" control={<Radio />} label="Nepali" />
+              </RadioGroup>
+            </FormControl>
         </div>
       );
    }
@@ -134,4 +168,4 @@ const matchDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps,matchDispatchToProps)(withStyles(styles)(App));
+export default connect(mapStateToProps,matchDispatchToProps)(withStyles(styles)(withTranslation()(App)));
