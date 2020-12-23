@@ -138,6 +138,7 @@ class App extends Component {
                 </Trans> */}
 
                 <hr />
+                <hr />
                 <FormControl component="fieldset">
                   <FormLabel component="legend"> Language Preference </FormLabel>
                   <RadioGroup aria-label="Language" name="lan" value={this.state.value} onChange={this.langChanger}>
