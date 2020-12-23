@@ -4,7 +4,9 @@ const initialState = {
     message: '',
     failMessage: '',
     isAuth: false,
-    aboutmessage: ''
+    aboutUsEmail: '',
+    aboutUsPhoneNo: '',
+    aboutUsWebsite: ''
 }
 
 const reducer = ( state=initialState, action ) => 
@@ -20,6 +22,8 @@ const reducer = ( state=initialState, action ) =>
         return {
             ...state,
             message : action.message,
+            email: action.email,
+            password: action.password,
             isAuth: true
         }
     }
@@ -32,7 +36,9 @@ const reducer = ( state=initialState, action ) =>
     if(action.type === 'MESSAGE_FROM_ABOUT_US'){
         return {
             ...state,
-            aboutmessage: action.message
+            aboutUsEmail:  action.aboutUsEmail,
+            aboutUsPhoneNo: action.aboutUsPhoneNo,
+            aboutUsWebsite: action.aboutUsWebsite 
         }
     }
     return state;

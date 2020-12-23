@@ -20,9 +20,11 @@ export const formSubmit = (email,password) => {
     }
 }
 
-export const messageHandler = (message) => {
+export const messageHandler = (email,phoneNo,webiste) => {
     return {
         type: MESSAGE_FROM_ABOUT_US,
-        message: message
+        aboutUsEmail: email,
+        aboutUsPhoneNo: phoneNo,
+        aboutUsWebsite: webiste
     }
 }

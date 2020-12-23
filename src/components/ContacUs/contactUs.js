@@ -7,8 +7,9 @@ class ContactUs extends Component {
         return (
             <Fragment>
                 <div className="message">
-                    <h1> {this.props.aboutMessage} </h1>
-                    <p> by {this.props.email}</p>
+                    <h1> Phone No: {this.props.aboutUsPhoneNo} </h1>
+                    <p> Email: {this.props.aboutUsEmail}</p>
+                    <p> Webiste: {this.props.aboutUsWebsite}</p>
                 </div>
             </Fragment>
         );
@@ -17,8 +18,9 @@ class ContactUs extends Component {
 
 const mapStateToProps = state => {
     return {
-        aboutMessage : state.aboutmessage,
-        email: state.email
+        aboutUsEmail : state.aboutUsEmail,
+        aboutUsPhoneNo: state.aboutUsPhoneNo,
+        aboutUsWebsite: state.aboutUsWebsite
     }
 }
 

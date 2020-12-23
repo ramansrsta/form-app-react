@@ -28,7 +28,9 @@ function* asyncInput(action){
                     password: action.password
                 })
         if(response){
-            yield put({type: "USER_LOGIN_SUCCEEDED", message : "SUCCESSFUL" });
+            yield put({type: "USER_LOGIN_SUCCEEDED", message : "SUCCESSFUL",
+            email: response.data.user['email'],
+            password: response.data.user['password']});
         }else{
             yield put({type: "USER_LOGIN_FAILED", message: "LOGIN UNSUCCESSFUL EMAIL OR PASSWORD NOT MATCHING"});
         } 

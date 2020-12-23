@@ -3,10 +3,11 @@ import React, { Component, Fragment } from 'react';
 
 
 import Home from './components/Home/home';
-import AboutUs from "./components/AboutUs/aboutUs";
+// import AboutUs from "./components/AboutUs/aboutUs";
 import ContactUs from './components/ContacUs/contactUs';
 import NavBar from './components/NavBar/navBar';
 import Login from './components/Login/login';
+import AboutUsForm from './components/AboutUs/aboutUs1';
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -124,7 +125,7 @@ class App extends Component {
               <NavBar />
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/about-us" component={AboutUs} />
+                <Route exact path="/about-us" component={AboutUsForm} />
                 <Route exact path="/contact-us" component={ContactUs} />
               </Switch>
               <div className="radio">
