@@ -3,11 +3,10 @@ import React, { Component, Fragment } from 'react';
 
 
 import Home from './components/Home/home';
-// import AboutUs from "./components/AboutUs/aboutUs";
 import ContactUs from './components/ContacUs/contactUs';
 import NavBar from './components/NavBar/navBar';
 import Login from './components/Login/login';
-import AboutUsForm from './components/AboutUs/aboutUs1';
+import AboutUsForm from './components/AboutUs/aboutUs';
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -18,14 +17,6 @@ import { connect } from 'react-redux';
 import { change, formSubmit } from './store/actions/actions';
 
 import { Route, Switch, Redirect } from 'react-router-dom';
-
-
-
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 
 import { withTranslation } from 'react-i18next';
 
@@ -122,32 +113,12 @@ class App extends Component {
               buttonClass={classes.button}
                /> : 
             <Fragment>
-              <NavBar />
+              <NavBar value={this.state.value} onChange={this.langChanger} />
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/about-us" component={AboutUsForm} />
                 <Route exact path="/contact-us" component={ContactUs} />
               </Switch>
-              <div className="radio">
-                {/*
-                 for testing purpose
-                 <div>
-                  {t('Welcome')}
-                </div>
-                <Trans i18nKey="Welcome">
-                  Welcome
-                </Trans> */}
-
-                <hr />
-                <hr />
-                <FormControl component="fieldset">
-                  <FormLabel component="legend"> Language Preference </FormLabel>
-                  <RadioGroup aria-label="Language" name="lan" value={this.state.value} onChange={this.langChanger}>
-                    <FormControlLabel value="en" control={<Radio />} label="English" />
-                    <FormControlLabel value="nep" control={<Radio />} label="Nepali" />
-                  </RadioGroup>
-                </FormControl>
-              </div>
             </Fragment> 
             }
         </div>

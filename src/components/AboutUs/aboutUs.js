@@ -1,11 +1,12 @@
-import React, { Component, Fragment } from 'react';
-
-import { withStyles } from '@material-ui/core/styles';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import Button from '@material-ui/core/Button';
-
+import React, { Component } from 'react';
+import * as Yup from 'yup';
+import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import { messageHandler } from '../../store/actions/actions';
+
+import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import { withStyles } from '@material-ui/core/styles';
 
 
 const styles = () => ({
@@ -24,51 +25,98 @@ const styles = () => ({
       textAlign:'center'
     }
 });
-class AboutUs extends Component {
-    state = {
-        message : ''
-    }
 
-    onSubmitHandler = (event) => {
-        event.preventDefault();
-        this.props.onSubmitMessage(this.state.message)
-        this.props.history.push('/contact-us');
-        console.log(this.props);
-    }
-
-    onClickHandler = (event) => {
-        this.setState({
-            message : event.target.value
-        })
-    }
-
+class AboutUsForm extends Component{
+    
     render(){
-        const { classes } = this.props
+        const { classes } = this.props;
         return (
-            <Fragment>
+            <Formik
+            initialValues={{
+                email: '',
+                phoneNo: '',
+                website: ''
+            }}
+    
+            validationSchema = {
+                Yup.object({
+                    email: Yup.string().email('Invalid email address').required('Required'),
+                    phoneNo: Yup.string().required('Required')
+                    .length(10, 'This field has to be exactly 10 numbers!'),
+                    website: Yup.string().url().required('Required')
+                })
+            }
+            onSubmit = {({email,phoneNo,website}) => {
+               this.props.onSubmitMessage(email,phoneNo,website);
+               this.props.history.push('/contact-us');
+            }}
+            >
+            {({ isValid , dirty, handleChange,phoneNo, website, errors, email, handleSubmit }) => (
+                <>
                 <h1 className={classes.header}> About Us </h1>
-                <form className={classes.root} autoComplete="off" onSubmit={this.onSubmitHandler}>
-                    <TextareaAutosize 
-                    aria-label="minimum height"
-                    rowsMin={3} 
-                    placeholder="Minimum 3 rows" 
-                    value={this.state.message}
-                    onChange={this.onClickHandler}
+                <form className={classes.root} onSubmit={handleSubmit}>
+                    {/* 
+                    <label htmlFor="email">Email Address</label>
+                    <Field name="email" type="email" />
+                    <ErrorMessage name="email" /><br></br> 
+                    
+                    <label htmlFor="phoneNo">Phone Number</label>
+                    <Field name="phoneNo" type="number" />
+                    <ErrorMessage name="phoneNo" /><br></br>
+    
+                    <label htmlFor="website"> Your Personal Website </label>
+                    <Field name="website" type="text" />
+                    <ErrorMessage name="website" /><br></br>
+                    */}
+
+
+                    <TextField
+                        id="email"
+                        type="email"
+                        name="email"
+                        label="Email"
+                        value={email}
+                        onChange={handleChange}
+                        error={Boolean(errors.email)}
+                        helperText={errors.email}
                     />
 
-                    <Button type="submit" className={classes.button} variant="contained" color="primary">
-                    Submit
-                    </Button>
+                    <TextField
+                        id="phoneNo"
+                        type="number"
+                        name="phoneNo"
+                        label="Phone No"
+                        value={phoneNo}
+                        onChange={handleChange}
+                        error={Boolean(errors.phoneNo)}
+                        helperText={errors.phoneNo}
+                    />
+
+                    <TextField
+                        id="website"
+                        type="text"
+                        name="website"
+                        label="Website"
+                        value={website}
+                        onChange={handleChange}
+                        error={Boolean(errors.website)}
+                        helperText={errors.website}
+                    />
+    
+                    <Button className={classes.button} variant="contained" color="primary" type="submit" disabled={!(isValid && dirty)}>Submit</Button>
                 </form>
-            </Fragment>
+                </>
+                )}
+    
+            </Formik>
         );
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSubmitMessage: (message) => dispatch(messageHandler(message))
+        onSubmitMessage: (email,phoneNo,website) => dispatch(messageHandler(email,phoneNo,website))
     }
 }
 
-export default connect(null,mapDispatchToProps)(withStyles(styles)(AboutUs));
+export default connect(null,mapDispatchToProps)(withStyles(styles)(AboutUsForm));
